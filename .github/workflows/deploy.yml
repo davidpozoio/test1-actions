@@ -19,5 +19,5 @@ jobs:
             git pull
             docker build -t app -f ./Dockerfile.build .
             docker rm -f github-actions || true
-            docker run --name github-actions -p 8000:8000 app
+            docker run --name github-actions -dp 8000:8000 app
           "
