@@ -1,0 +1,16 @@
+name: Test
+on: [push]
+jobs:
+  Show-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup ssh
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 7000 -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: Deploy to server
+        run: ssh -p 7000 root@${{ secrets.SERVER_IP }} "cd /home/app && ls -l"
