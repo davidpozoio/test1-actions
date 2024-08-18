@@ -13,4 +13,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p 7000 -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
       - name: Deploy to server
-        run: ssh -p 7000 root@${{ secrets.SERVER_IP }} "cd /home/app && ls -l"
+        run: |
+          ssh -p 7000 root@${{ secrets.SERVER_IP }} "
+            cd /home/github-actions
+            git pull
+            docker build -t app -f ./Dockerfile.build .
+            docker stop app || true
+            docker run -p 8000:8000 app
+          "
