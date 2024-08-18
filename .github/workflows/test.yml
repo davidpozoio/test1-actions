@@ -1,0 +1,7 @@
+name: Test
+on: [push]
+jobs:
+  Show-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ secrets.MESSAGE }}
