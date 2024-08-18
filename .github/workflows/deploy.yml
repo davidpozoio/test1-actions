@@ -18,6 +18,6 @@ jobs:
             cd /home/github-actions
             git pull
             docker build -t app -f ./Dockerfile.build .
-            docker stop app || true
-            docker run -p 8000:8000 app
+            docker rm -f github-actions || true
+            docker run --name github-actions -p 8000:8000 app
           "
