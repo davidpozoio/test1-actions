@@ -9,4 +9,6 @@ RUN pnpm install
 COPY . .
 
 RUN pnpm run build
+RUN mkdir dist/public
+RUN cp ./src/public/* ./dist/public
 CMD ["pnpm", "run", "start"]
