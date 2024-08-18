@@ -1,4 +1,4 @@
-name: Test
+name: Deploy action
 on: [push]
 jobs:
   Show-secret:
